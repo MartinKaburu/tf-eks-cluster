@@ -4,16 +4,16 @@ serviceAccount:
   annotations:
     eks.amazonaws.com/role-arn: "arn:aws:iam::594683469266:role/KarpenterServiceAccountRole"
 
-replicas: 2
+replicas: 1
 revisionHistoryLimit: 10
 
 strategy:
   rollingUpdate:
-    maxUnavailable: 1
+    maxUnavailable: 0
 
 podDisruptionBudget:
   name: karpenter
-  maxUnavailable: 1
+  maxUnavailable: 0
 
 podSecurityContext:
   fsGroup: 65532

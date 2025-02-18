@@ -16,7 +16,10 @@ module "eks_karpenter_namespaces_sa_role" {
   }
 
   role_policy_arns = {
-    AmazonEC2FullAccess        = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+    AmazonEC2FullAccess     = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+    AmazonSSMReadOnlyAccess = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+    AmazonEKSWorkerNodePolicy = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+    AmazonEKSClusterPolicy  = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   }
 
   depends_on = [module.eks]

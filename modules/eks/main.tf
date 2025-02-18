@@ -25,11 +25,6 @@ module "eks" {
       labels = {
         "role" = "karpenter"
       }
-      taints = [{
-        key    = "role"
-        value  = "karpenter"
-        effect = "NO_SCHEDULE"
-      }]
     }
   }
 }
