@@ -5,6 +5,8 @@ resource "helm_release" "karpenter" {
   chart      = "karpenter"
   version    = "1.2.1"
 
+  create_namespace = true
+
   values = [
     file("./helm/karpenter_values.yaml")
   ]
