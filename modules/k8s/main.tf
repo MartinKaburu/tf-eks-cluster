@@ -1,3 +1,14 @@
+resource "helm_release" "karpenter_crd" {
+  name       = "karpente-crdr"
+  namespace  = "karpenter"
+  repository = "https://charts.karpenter.sh"
+  chart      = "karpenter-crd"
+
+  create_namespace = true
+
+  wait       = true
+}
+
 resource "helm_release" "karpenter" {
   name       = "karpenter"
   namespace  = "karpenter"
