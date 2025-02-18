@@ -38,8 +38,9 @@ affinity:
       nodeSelectorTerms:
         - matchExpressions:
             - key: 'role'
-              operator: 'Equal'
-              value: 'karpenter'
+              operator: 'In'
+              values:
+                - 'karpenter'
 
 tolerations:
   - key: 'role'
