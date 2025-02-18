@@ -38,15 +38,13 @@ affinity:
       nodeSelectorTerms:
         - matchExpressions:
             - key: 'role'
-              operator: 'In'
-              values:
-                - 'karpenter'
+              operator: 'Equal'
+              value: 'karpenter'
 
 tolerations:
   - key: 'role'
-    operator: 'In'
-    values:
-      - 'karpenter'
+    operator: 'Equal'
+    value: 'karpenter'
 
 controller:
   containerName: controller
