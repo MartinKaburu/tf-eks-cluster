@@ -1,5 +1,5 @@
 resource "helm_release" "karpenter_crd" {
-  name       = "karpente-crdr"
+  name       = "karpente-crd"
   namespace  = "karpenter"
   repository = "oci://public.ecr.aws/karpenter"
   chart      = "karpenter-crd"
