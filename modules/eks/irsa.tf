@@ -17,31 +17,7 @@ module "eks_karpenter_namespaces_sa_role" {
 
   role_policy_arns = {
     AmazonEC2FullAccess        = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
-
   }
 
   depends_on = [module.eks]
 }
-
-#resource "aws_iam_policy" "karpenter_eks_access" {
-#  name        = "karpenter_eks_access_policy"
-#  description = "Allows EKS cluster access"
-#  policy      = jsonencode({
-#    Version = "2012-10-17"
-#    Statement = [
-#      {
-#        Effect   = "Allow"
-#        Action   = [
-#          "eks:*",
-#        ]
-#
-#        Resource = "*"
-#      }
-#    ]
-#  })
-#}
-#
-#resource "aws_iam_role_policy_attachment" "eks_access_attach" {
-#  policy_arn = aws_iam_policy.karpenter_eks_access.arn
-#  role       = "KarpenterServiceAccountRole"
-#}
