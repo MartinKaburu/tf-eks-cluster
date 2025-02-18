@@ -3,6 +3,7 @@ resource "helm_release" "karpenter_crd" {
   namespace  = "karpenter"
   repository = "oci://public.ecr.aws/karpenter"
   chart      = "karpenter-crd"
+  version    = "1.2.1"
 
   create_namespace = true
 
@@ -23,6 +24,8 @@ resource "helm_release" "karpenter" {
   ]
 
   wait       = true
+
+  depends_on = [helm_release.karpenter_crd]
 }
 
 resource "kubernetes_manifest" "provisioner" {
