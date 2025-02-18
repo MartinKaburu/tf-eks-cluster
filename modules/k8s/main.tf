@@ -1,7 +1,7 @@
 resource "helm_release" "karpenter_crd" {
   name       = "karpente-crdr"
   namespace  = "karpenter"
-  repository = "https://charts.karpenter.sh"
+  repository = "oci://public.ecr.aws/karpenter"
   chart      = "karpenter-crd"
 
   create_namespace = true
