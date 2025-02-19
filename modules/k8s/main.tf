@@ -7,7 +7,7 @@ resource "helm_release" "karpenter_crd" {
 
   create_namespace = true
 
-  wait       = true
+  wait = true
 }
 
 resource "helm_release" "karpenter" {
@@ -23,7 +23,7 @@ resource "helm_release" "karpenter" {
     file("./helm/karpenter_values.yaml")
   ]
 
-  wait       = true
+  wait = true
 
   depends_on = [helm_release.karpenter_crd]
 }

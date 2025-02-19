@@ -13,7 +13,7 @@ variable "cluster_name" {
 variable "subnets" {
   description = "Subnets where to deploy cluster."
   type        = list(string)
-  default     = ["616773902608",]
+  default     = ["616773902608", ]
 }
 
 variable "vpc_id" {

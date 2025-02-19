@@ -10,10 +10,10 @@ module "eks" {
 
   cluster_endpoint_public_access = true
   cluster_endpoint_public_access_cidrs = [
-      "105.163.158.69/32",
+    "105.163.158.69/32",
   ]
 
-  enable_irsa     = true
+  enable_irsa = true
 
   eks_managed_node_groups = {
     karpenter = {
@@ -30,18 +30,18 @@ module "eks" {
 }
 
 module "karpenter" {
-  source               = "terraform-aws-modules/eks/aws//modules/karpenter"
-  cluster_name         = module.eks.cluster_name
-  namespace            = "karpenter"
+  source       = "terraform-aws-modules/eks/aws//modules/karpenter"
+  cluster_name = module.eks.cluster_name
+  namespace    = "karpenter"
 
-  create_access_entry  = false
+  create_access_entry = false
 
-  create_iam_role      = false
-  iam_role_name        = "KarpenterServiceAccountRole"
+  create_iam_role = false
+  iam_role_name   = "KarpenterServiceAccountRole"
 
-  enable_irsa          = true
+  enable_irsa                     = true
   irsa_namespace_service_accounts = ["karpenter:karpenter"]
-  irsa_oidc_provider_arn = module.eks.cluster_oidc_issuer_url
+  irsa_oidc_provider_arn          = module.eks.cluster_oidc_issuer_url
 
   create_node_iam_role = false
   node_iam_role_arn    = module.eks.eks_managed_node_groups["karpenter"].iam_role_arn
