@@ -1,6 +1,9 @@
 #!/bin/bash
 
 main() {
+    # Read AWS region
+    read -p "Enter AWS region: " AWS_REGION
+
     # eks module
     cd ./modules/eks
 
@@ -14,6 +17,20 @@ main() {
     fi
 
     # k8s module
+
+    # get instanceProfileName for EC2NodeCLass
+    export InstanceProfileName=$(aws iam list-instance-profiles --region $AWS_REGION --output json | jq -r '.InstanceProfiles[].InstanceProfileName' | grep -q eks)
+
+    # get region specific AMI
+    export AMD64_IMAGE=$(aws ssm get-parameter --name "/aws/service/eks/optimized-ami/1.32/amazon-linux-2/recommended" --region $AWS_REGION --query 'Parameter.Value' --output text --no-cli-pager | jq -r '.image_id')
+    export ARM64_IMAGE=$(aws ssm get-parameter --name "/aws/service/eks/optimized-ami/1.32/amazon-linux-2-arm64/recommended" --region $AWS_REGION --query 'Parameter.Value' --output text --no-cli-pager | jq -r '.image_id')
+
+    echo "AMD64_IMAGE: $AMD64_IMAGE"
+    echo "ARM64_IMAGE: $ARM64_IMAGE"
+    echo "InstanceProfileName: $InstanceProfileName"
+
+    read -p "Update k8ss variables if necessary. Press any key to continue..."
+
     cd ../../k8s
     terraform init
 
