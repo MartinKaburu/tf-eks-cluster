@@ -16,7 +16,7 @@ main() {
     # k8s module
     read -p "Update k8s variables if necessary, then press Enter to continue..."
     
-    cd ../../k8s
+    cd ../k8s
     terraform init
 
     terraform plan -target=helm_release.karpenter_crd
