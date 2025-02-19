@@ -7,17 +7,17 @@ variable "aws_region" {
 variable "cluster_name" {
   description = "Cluster name."
   type        = string
-  default     = "616773902608"
+  default     = "test-cluster"
 }
 
 variable "subnets" {
   description = "Subnets where to deploy cluster."
   type        = list(string)
-  default     = ["616773902608", ]
+  default     = ["subnet-1234", ]
 }
 
 variable "vpc_id" {
   description = "VPC to launch cluster."
   type        = string
-  default     = "616773902608"
+  default     = "vpc-61677"
 }
