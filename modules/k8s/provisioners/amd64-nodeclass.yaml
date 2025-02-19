@@ -6,7 +6,7 @@ spec:
   amiFamily: AL2
   instanceProfile: eks-58ca8db0-a730-9cb2-01e2-a71e991ead8c
   amiSelectorTerms:
-    - id: "ami-00f994c719fc62e9e"
+    - id: "ami-09c01b6eb63a9a94c"
   subnetSelectorTerms:
     - id: "subnet-e708b6ab"
     - id: "subnet-f3e5fe8b"

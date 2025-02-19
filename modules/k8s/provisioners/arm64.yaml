@@ -19,10 +19,7 @@ spec:
           values: ["arm64"]
         - key: "node.kubernetes.io/instance-type"
           operator: In
-          values: ["m6g.small"]
-        - key: "kubernetes.io/os"
-          operator: In
-          values: ["linux"]
+          values: ["t4g.small"]
 
       terminationGracePeriod: 1h
 
