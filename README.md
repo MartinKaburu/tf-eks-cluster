@@ -1,5 +1,5 @@
 # Overview
-This repository contains Terraform configurations for setting up an Amazon EKS (Elastic Kubernetes Service) cluster. It also has an eks module that provisions [Karpenter](https://karpenter.io) in the cluster and configures two karpenter.sh/v1/nodepools with arm64 and amd64 architectures.
+This repository contains Terraform configurations for setting up an Amazon EKS (Elastic Kubernetes Service) cluster. It also has an eks module that provisions [Karpenter](https://karpenter.sh) in the cluster and configures two `karpenter.sh/v1/nodepools` with **arm64** and **amd64** architectures.
 
 # Prerequisites
 - Terraform (=1.10.5)
@@ -88,6 +88,14 @@ spec:
                 ports:
                 - containerPort: 80 # Replace with your container port
 EOF
+```
+After applying this, it will usually take about a minute for karpenter to spin up nodes for the new workloads, you can observe that happening with the following commands.
+```bash
+# watch the pods state change
+kubectl get pods --watch
+
+# check the number of nodes in each of the pools
+kubectl get nodepools 
 ```
 
 # Cleanup
