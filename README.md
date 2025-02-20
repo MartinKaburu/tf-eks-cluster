@@ -7,7 +7,7 @@ This repository contains Terraform configurations for setting up an Amazon EKS (
 - Kubectl
 
 # Provisioning Resources
-Before initializing the modules, ensure that the cluster_name, 2 subnets(in different az), vpc_id and aws_region have been configured in the terraform.tfvars file. Once the variables have been configured, run the init script to install the EKS module.
+Before initializing the modules, ensure that the cluster_name, 2 subnets(in different az), vpc_id and aws_region have been configured in the `./modules/*/terraform.tfvars` files and `aws_account` in the `./modules/k8s/helm/karpenter_values.yaml`. Once the variables have been configured, run the init script to install the EKS module.
 ```bash
 ./init.sh
 ```
