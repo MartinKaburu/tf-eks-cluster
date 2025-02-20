@@ -2,7 +2,7 @@
 
 GPU slicing in EKS clusters is a feasible idea and can be implemented with Karpenter. The idea is made possible by **Nvidia Multi-Instance GPU(MIG)** technology which is available in some of Nvidia’s instances such as (`p4d.24xlarge` and `p4de.24xlarge`). With MIG you can dispatch multiple diverse workloads(which do not require the whole memory of a single GPU) on the same GPU without performance interference. We can configure this with karpenter by following the following steps: (_I’ll be assuming that we are using the `p4d.24xlarge` instance and that karpenter is already installed in the cluster_)
 
-1. Configure a karpenter `karpenter.sh/v1/NodePool` setting the requirement `node.kubernetes.io/instance-type=p4d.24xlarge`
+1. Configure a karpenter `karpenter.sh/v1/NodePool` resource setting the requirement `node.kubernetes.io/instance-type=p4d.24xlarge`
 
 2. Once the instance is up and running, explicitly enable MIG on the nodes since it’s not enabled by default. Deploy a k8s daemonset that deploys an Nvidia container like `nvidia/cuda:latest` and executes the lines below. The daemonset must have the nodeSelector `node.kubernetes.io/instance-type=p4d.24xlarge`.
 ```bash
