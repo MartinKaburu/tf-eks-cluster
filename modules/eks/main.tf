@@ -8,7 +8,7 @@ module "eks" {
 
   enable_cluster_creator_admin_permissions = true
 
-  cluster_endpoint_public_access = true
+  cluster_endpoint_public_access = true # Ideal here would have been to only allow access to a bastion but I don't have one so enabling local access instead.
   cluster_endpoint_public_access_cidrs = [
     "105.163.158.69/32",
   ]
