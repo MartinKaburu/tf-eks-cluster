@@ -48,6 +48,6 @@ Some great advantages of this are:
 # References
 [Nvidia MIG](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/?ncid=afm-chs-44270&ranMID=44270&ranEAID=msYS1Nvjv4c&ranSiteID=msYS1Nvjv4c-N12KmVqKMdurYTNTKIKfCw)
 
-[Utilizing Nvidia Multi Instance GPU](https://aws.amazon.com/blogs/containers/utilizing-nvidia-multi-instance-gpu-mig-in-amazon-ec2-p4d-instances-on-amazon-elastic-kubernetes-service-eks/?utm_source=chatgpt.com)
+[Utilizing Nvidia MultiInstance GPU](https://aws.amazon.com/blogs/containers/utilizing-nvidia-multi-instance-gpu-mig-in-amazon-ec2-p4d-instances-on-amazon-elastic-kubernetes-service-eks/?utm_source=chatgpt.com)
 
 [EC2 P4 Instances](https://aws.amazon.com/ec2/instance-types/#Accelerated_Computing)
