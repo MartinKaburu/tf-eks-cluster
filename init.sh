@@ -26,7 +26,6 @@ main() {
         --output text
     )
 
-
     # get instanceProfileName for EC2NodeClass
     export InstanceProfileName=$(aws iam list-instance-profiles --region $AWS_REGION --output json | jq -r '.InstanceProfiles[].InstanceProfileName' | grep eks)
 
