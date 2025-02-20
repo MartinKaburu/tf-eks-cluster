@@ -9,6 +9,9 @@ GPU slicing in EKS clusters is a feasible idea and can be implemented with Karpe
 # Enable MIG
 nvidia-smi -mig 1 
 
+# You can view different available MIG profiles and their IDs with, 19 below is the ID for profile "MIG 1g.5gb" with 7 total instances
+nvidia-smi mig -lgip
+
 # Create and configure MIG instances, ID 19 means each partition gets 1gpu and 5gb ram. Meaning we'd have 7 partitions per GPU. With 8 GPUs/Node we'd have 56 partitions per instance. The partition configured can be varied and different allocations used.
 nvidia-smi mig -cgi 19,19,19,19,19,19,19 
 
