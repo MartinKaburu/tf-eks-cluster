@@ -3,6 +3,7 @@
 main() {
     # Read AWS region
     read -p "Enter AWS region: " AWS_REGION
+    echo "Installing EKS module..."
 
     # eks module
     cd ./modules/eks
@@ -12,14 +13,14 @@ main() {
     terraform plan
     terraform apply -auto-approve
     
-    if [ $? -ne 0 ]; then # Probably failed because OIDC did not exist
+    if [ $? -ne 0 ]; then # Probably failed because OIDC provider is not ready yet, re-running should fix
         terraform apply -auto-approve
     fi
 
-    # k8s module
+    echo "Installing K8s module..."
 
-    # get instanceProfileName for EC2NodeCLass
-    export InstanceProfileName=$(aws iam list-instance-profiles --region $AWS_REGION --output json | jq -r '.InstanceProfiles[].InstanceProfileName' | grep -q eks)
+    # get instanceProfileName for EC2NodeClass
+    export InstanceProfileName=$(aws iam list-instance-profiles --region $AWS_REGION --output json | jq -r '.InstanceProfiles[].InstanceProfileName' | grep eks)
 
     # get region specific AMI
     export AMD64_IMAGE=$(aws ssm get-parameter --name "/aws/service/eks/optimized-ami/1.32/amazon-linux-2/recommended" --region $AWS_REGION --query 'Parameter.Value' --output text --no-cli-pager | jq -r '.image_id')
@@ -29,9 +30,9 @@ main() {
     echo "ARM64_IMAGE: $ARM64_IMAGE"
     echo "InstanceProfileName: $InstanceProfileName"
 
-    read -p "Update k8ss variables if necessary. Press any key to continue..."
+    read -p "Update k8s variables if necessary. Press Enter to continue..."
 
-    cd ../../k8s
+    cd ../k8s
     terraform init
 
     terraform plan -target=helm_release.karpenter_crd
