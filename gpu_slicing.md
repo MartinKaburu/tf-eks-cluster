@@ -36,6 +36,7 @@ resources:
     requests:
         nvidia.com/mig-1g.5gb: 5 # Gives 5 of the 56 partitions to workload
 ```
+
 This setup can be tweaked to vary the number of partitions and their size and would be very effective for utilizing GPU slicing with Nvidia MIG architecture. 
 Some great advantages of this are:
 - Cost saving by sharing a GPU across multiple workloads
