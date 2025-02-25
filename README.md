@@ -52,11 +52,6 @@ spec:
         spec:
             nodeSelector:
                 kubernetes.io/arch: amd64
-            tolerations:
-            - key: "arch"
-                operator: "Equal"
-                value: "amd64"
-                effect: "NoSchedule"
             containers:
             - name: amd64-container
                 image: nginx:latest # Replace with your image
@@ -77,11 +72,6 @@ spec:
         spec:
             nodeSelector:
                 kubernetes.io/arch: arm64
-            tolerations:
-            - key: "arch"
-                operator: "Equal"
-                value: "arm64"
-                effect: "NoSchedule"
             containers:
             - name: arm64-container
                 image: nginx:latest # Replace with your image
