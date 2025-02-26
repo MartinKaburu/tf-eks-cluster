@@ -29,9 +29,9 @@ resource "helm_release" "karpenter" {
 }
 
 resource "kubernetes_manifest" "provisioner" {
-  for_each = fileset("./provisioners", "*.yaml")
+  for_each = fileset("./provisioners/", "karpenter.yaml")
 
-  manifest = yamldecode(file(format("%s%s", "./provisioners/", each.value)))
+  manifest = yamldecode(file(each.value))
 
   depends_on = [helm_release.karpenter]
 }
