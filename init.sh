@@ -20,12 +20,11 @@ main() {
     echo "Installing K8s module..."
     # get securityGroup for EC2NodeClass
     export NodeGroup=$(aws eks list-nodegroups --cluster-name test-cluster --query 'nodegroups[0]' --region $AWS_REGION --output text)
-    export SecurityGroupId=$(aws ec2 describe-instances \
-        --instance-ids $(aws eks describe-nodegroup --cluster-name test-cluster --nodegroup-name $NodeGroup --query 'nodegroup.instances[0].instanceId' --output text) \
-        --query 'Reservations[].Instances[].SecurityGroups[].GroupId' \
-        --output text
-    )
-
+    export AutoScalingGroup=$(aws eks describe-nodegroup --cluster-name test-cluster --nodegroup-name "$NodeGroup" --output json --region $AWS_REGION | jq -r '.nodegroup.resources.autoScalingGroups[0].name')
+    export InstanceId=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names $AutoScalingGroup --region $AWS_REGION --output json | jq -r '.AutoScalingGroups[0].Instances[0].InstanceId')
+    export SecurityGroupId=$(aws ec2 describe-instances --instance-ids $InstanceId --region $AWS_REGION --output json | jq -r '.Reservations[0].Instances[0].SecurityGroups[0].GroupId')
+    
+    
     # get instanceProfileName for EC2NodeClass
     export InstanceProfileName=$(aws iam list-instance-profiles --region $AWS_REGION --output json | jq -r '.InstanceProfiles[].InstanceProfileName' | grep eks)
 
@@ -41,6 +40,7 @@ main() {
     read -p "Update k8s variables if necessary. Press Enter to continue..."
 
     cd ../k8s
+
     terraform init
 
     terraform plan -target=helm_release.karpenter_crd

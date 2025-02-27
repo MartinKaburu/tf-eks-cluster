@@ -28,10 +28,12 @@ resource "helm_release" "karpenter" {
   depends_on = [helm_release.karpenter_crd]
 }
 
+locals {
+  yamls = split("---", file("./provisioners/karpenter.yaml"))
+}
+
 resource "kubernetes_manifest" "provisioner" {
-  for_each = fileset("./provisioners/", "karpenter.yaml")
+  for_each = { for idx, doc in local.yamls : idx => yamldecode(doc) }
 
-  manifest = yamldecode(file(each.value))
-
-  depends_on = [helm_release.karpenter]
+  manifest = each.value
 }

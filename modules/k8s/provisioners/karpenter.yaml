@@ -1,20 +1,18 @@
----
 apiVersion: karpenter.k8s.aws/v1
 kind: EC2NodeClass
 metadata:
   name: multi-arch-nodeclass
 spec:
   amiFamily: AL2
-  instanceProfile: eks-58ca8db0-a730-9cb2-01e2-a71e991ead8c
+  instanceProfile: eks-2ecaa3b4-2a22-e126-6f72-e03b8dd92060
   amiSelectorTerms:
-    - id: "ami-09c01b6eb63a9a94c" # amd64
-    - id: "ami-0d7c315b12e4af4ac" # arm64
+    - id: "ami-029e5e3c202dba13c" # amd64
+    - id: "ami-0e20ae5b11f46c493" # arm64
   subnetSelectorTerms:
     - id: "subnet-e708b6ab"
     - id: "subnet-f3e5fe8b"
   securityGroupSelectorTerms:
-    - id: "sg-0a5e648b39e3f0bfd"
-
+    - id: "sg-042b96ff97735f14e"
 ---
 apiVersion: karpenter.sh/v1
 kind: NodePool

@@ -5,7 +5,7 @@ main() {
 
     # Refresh credentials
     cd ./modules/eks
-    terraform plan && terraform apply -auto-approve
+    terraform plan && terraform apply -auto-approve -refresh-only
     
     cd ../k8s
 
