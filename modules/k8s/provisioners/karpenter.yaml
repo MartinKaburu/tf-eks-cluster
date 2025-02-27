@@ -1,0 +1,48 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: multi-arch-nodeclass
+spec:
+  amiFamily: AL2
+  instanceProfile: eks-2ecaa3b4-2a22-e126-6f72-e03b8dd92060
+  amiSelectorTerms:
+    - id: "ami-029e5e3c202dba13c" # amd64
+    - id: "ami-0e20ae5b11f46c493" # arm64
+  subnetSelectorTerms:
+    - id: "subnet-e708b6ab"
+    - id: "subnet-f3e5fe8b"
+  securityGroupSelectorTerms:
+    - id: "sg-042b96ff97735f14e"
+---
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: multi-arch-nodepool
+spec:
+  template:
+    spec:
+      nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
+        name: multi-arch-nodeclass
+
+      requirements:
+        - key: "karpenter.sh/capacity-type"
+          operator: In
+          values: ["spot"]
+        - key: "kubernetes.io/arch"
+          operator: In
+          values: ["amd64", "arm64"]
+        - key: "node.kubernetes.io/instance-type"
+          operator: In
+          values: ["t3.small", "t4g.small"]
+
+      terminationGracePeriod: 1h
+
+  disruption:
+    consolidationPolicy: "WhenEmptyOrUnderutilized"
+    consolidateAfter: "30s"
+
+  limits:
+    cpu: "4000"
+    memory: "16Gi"
